@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux/es/exports";
+import { selectNotesList } from "../../features/noteSlice";
+import { updateNote } from "../../features/noteSlice";
 import { Card, Button } from "antd";
 import { Col, Divider, Row } from "antd";
 import NoteDetailsCategories from "./NoteDetailsCategories";
 import NoteDetailsText from "./NoteDetailsText";
-
+import dayjs from "dayjs";
 const NoteDetails = ({
-	notes,
-	setNotes,
 	activeNote,
 	setActiveNote,
 	isMyNoteOpen,
@@ -18,14 +20,27 @@ const NoteDetails = ({
 	const [visible, setVisible] = useState(false);
 	const [visibleAdd, setVisibleAdd] = useState(false);
 
+	const notesList = useSelector(selectNotesList);
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		setTextTemp(activeNote.text);
 	}, [activeNote]);
 
 	const saveHandler = () => {
-		const newState = notes;
+		const newState = [...notesList];
+		// console.log(newState);
 		newState[parseInt(activeNoteId)] = activeNote;
-		setNotes(newState);
+		dispatch(
+			updateNote({
+				title: activeNote.title,
+				categories: activeNote.categories,
+				text: activeNote.text,
+				date: activeNote.date,
+				id: activeNote.id,
+			})
+		);
+		console.log(notesList);
 	};
 
 	return (
@@ -48,7 +63,7 @@ const NoteDetails = ({
 						title='Created On'
 						style={{ borderRadius: 10, textAlign: "center", minHeight: 180 }}>
 						<Button type='secondary' shape='round' size='large'>
-							{activeNote.date}
+							{dayjs(activeNote.date).format("DD/MM/YYYY")}
 						</Button>
 					</Card>
 				</Col>

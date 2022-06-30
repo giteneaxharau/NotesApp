@@ -1,20 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Typography, Row, Col } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
+import { remove } from "../features/noteSlice";
 
 const Note = ({
-	notes,
-	setNotes,
 	id,
 	obj,
-	isMyNoteOpen,
 	setIsMyNoteOpen,
-	activeNote,
 	setActiveNote,
 	setActiveNoteId,
 	activeNoteId,
 }) => {
 	const [isClicked, setIsClicked] = useState(false);
+	const dispatch = useDispatch();
 
 	const activeNoteHandler = (e) => {
 		setActiveNoteId(e.currentTarget.id);
@@ -24,8 +23,7 @@ const Note = ({
 	};
 
 	const deleteNoteHandler = () => {
-		setActiveNoteId(id);
-		setNotes(notes.filter((obj) => obj.id !== activeNoteId));
+		dispatch(remove(activeNoteId));
 	};
 
 	return (

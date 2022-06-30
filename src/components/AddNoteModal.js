@@ -1,23 +1,21 @@
-import { Card, Row, Col, Input, Divider } from "antd";
+import { Card, Row, Col, Input, Divider, Alert } from "antd";
 import React from "react";
 
 const AddNoteModal = ({
 	title,
 	setTitle,
-	categories,
 	setCategories,
 	text,
 	setText,
+	disabled,
+	categories
 }) => {
-
-	
-
 	return (
 		<>
 			<Card bordered={false}>
 				<Row justify='space-between' align='top' wrap={true}>
 					<Col span={11}>
-						<Card hoverable title='Title' bordered={false}>
+						<Card title='Title' bordered={false}>
 							<Input
 								value={title}
 								placeholder='Enter a title for your note...'
@@ -27,8 +25,9 @@ const AddNoteModal = ({
 						</Card>
 					</Col>
 					<Col span={11}>
-						<Card hoverable title='Categories' bordered={false}>
+						<Card title='Categories' bordered={false}>
 							<Input
+								value={categories}
 								placeholder='Enter categories for your note...'
 								size='large'
 								allowClear
@@ -55,6 +54,15 @@ const AddNoteModal = ({
 					</Card>
 				</Row>
 			</Card>
+			{disabled && (
+				<Alert
+					message='Warning'
+					description='You shouldnt leave any of the fields empty'
+					type='warning'
+					showIcon
+					closable
+				/>
+			)}
 		</>
 	);
 };

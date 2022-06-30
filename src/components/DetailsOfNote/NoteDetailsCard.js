@@ -6,8 +6,6 @@ import NoteDetails from "./NoteDetails";
 
 
 const NoteDetailsCard = ({
-	notes,
-	setNotes,
 	isMyNoteOpen,
 	setIsMyNoteOpen,
 	activeNote,
@@ -16,7 +14,6 @@ const NoteDetailsCard = ({
 	setActiveNoteId,
 }) => {
 	const saveTitleHandler = (e) => {
-		console.log(e);
 		setActiveNote((prevState) => {
 			return { ...prevState, title: e, label: e };
 		});
@@ -48,8 +45,6 @@ const NoteDetailsCard = ({
 				}}
 				headStyle={{ backgroundColor: "#1890FF", borderRadius: 10 }}>
 				<NoteDetails
-					notes={notes}
-					setNotes={setNotes}
 					activeNote={activeNote}
 					setActiveNote={setActiveNote}
 					isMyNoteOpen={isMyNoteOpen}
