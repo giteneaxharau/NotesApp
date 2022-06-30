@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectNotesList } from "../features/noteSlice";
 import { Button, Row, Col, Typography, Divider, Input, List, Card } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Downshift from "downshift";
@@ -6,21 +8,12 @@ import Note from "./Note";
 import AddNote from "./AddNote";
 
 const SearchBar = ({
-	notes,
-	setNotes,
-	isMyNoteOpen,
 	setIsMyNoteOpen,
-	activeNote,
 	setActiveNote,
 	activeNoteId,
 	setActiveNoteId,
 }) => {
-	const notesReversed = notes.reverse();
-	const [newNotes, setNewNotes] = useState(notesReversed);
-
-	useEffect(() => {
-		setNewNotes(notesReversed);
-	}, [notes]);
+	const notesList = useSelector(selectNotesList);
 
 	return (
 		<>
@@ -73,9 +66,9 @@ const SearchBar = ({
 									boxShadow: "-1px 3px lightgray",
 								}}
 								{...getMenuProps()}>
-								<AddNote notes={notes} setNotes={setNotes} />
+								<AddNote notesList={notesList} />
 								<Divider style={{ marginTop: 10, marginBottom: 12 }}></Divider>
-								{newNotes
+								{notesList
 									.filter(
 										(item) =>
 											!inputValue.toLowerCase() ||
@@ -88,13 +81,9 @@ const SearchBar = ({
 											itemLayout='vertical'>
 											<List.Item style={{ textAlign: "right" }}>
 												<Note
-													notes={notes}
-													setNotes={setNotes}
 													id={item.id}
 													obj={item}
-													isMyNoteOpen={isMyNoteOpen}
 													setIsMyNoteOpen={setIsMyNoteOpen}
-													activeNote={activeNote}
 													setActiveNote={setActiveNote}
 													setActiveNoteId={setActiveNoteId}
 													activeNoteId={activeNoteId}
