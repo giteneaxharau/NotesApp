@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Notes App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was done with React & Redux. The component library used is Antdesign,Downshift.
+
+## Coming Soon 
+
+- Saving notes in cookies or local storage, (Future => maybe in database like fireship).
+- Adding more features:
+  - Reminders.
+  - ToDo list functionality.
+  - Done task functionality with reward.
 
 ## Available Scripts
 
